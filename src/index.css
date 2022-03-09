@@ -35,6 +35,10 @@ code {
 }
 
 .contacts-container td {
-  padding: 5px;
+  padding: 5px 10px 5px 10px;
   text-align: center;
+}
+
+.contacts-container span {
+  font-size: 25px;
 }
