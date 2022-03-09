@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+.contacts-container {
+  margin: 0 5px 0 5px;
+
+}
+
+.contacts-container h2 {
+  margin: 0;
+  font-weight: bold;
+}
+
+
+.contacts-container img {
+  width: 80px;
+  height: auto;
+}
+
+.contacts-container p {
+  font-size: 23px;
+}
+
+.contacts-container td {
+  padding: 5px;
+  text-align: center;
+}
