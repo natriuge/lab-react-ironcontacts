@@ -8,8 +8,7 @@ function App() {
 
   const [newContacts, setNewContacts] = useState (contacts.slice(0,5))
   const cloneNewContacts = [...newContacts]
-
-
+  
   function addRandom() {
    
     const RandomContact = contacts[Math.floor(Math.random() * contacts.length)]
@@ -36,7 +35,18 @@ function App() {
     return setNewContacts(cloneNewContacts)
     
   }
- 
+
+  function Remove(event) {
+   const idRemove = event.target.attributes[0].value
+
+   const newArray = cloneNewContacts.filter(currentElement =>
+      currentElement.id !== idRemove
+    )
+
+    return setNewContacts(newArray)
+  }
+
+    
    
   return (
     <div className="App">
@@ -52,19 +62,21 @@ function App() {
             <td><h2>Popularity</h2></td>
             <td><h2>Won<br/>Oscar</h2></td>
             <td><h2>Won<br/>Emmy</h2></td>
+            <td><h2>Actions</h2></td>
           </tr>
           
       { cloneNewContacts.map(currentElement => {
         const wonOscar = currentElement.wonOscar ? trophy : null
         const wonEmmy = currentElement.wonEmmy ? trophy : null 
-
+        
         return (
-          <tr>
+          <tr key = {currentElement.id}>
             <td><img src = {currentElement.pictureUrl} alt = {currentElement.name}/></td>
             <td><p>{currentElement.name}</p></td>
             <td><p>{Math.round(currentElement.popularity * 100) / 100}</p></td>
             <td><span>{wonOscar}</span></td>
             <td><span>{wonEmmy}</span></td>
+            <td><button onClick = {Remove} dataid = {currentElement.id} className = 'delete-button' type = 'button'>Delete</button></td>
           </tr>
         )
       })}
