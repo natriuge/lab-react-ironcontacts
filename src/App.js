@@ -2,33 +2,49 @@ import './App.css';
 import contacts from './contacts.json';
 import { useState } from 'react';
 
-
 const trophy = '🏆'
-
 
 function App() {
 
   const [newContacts, setNewContacts] = useState (contacts.slice(0,5))
+  const cloneNewContacts = [...newContacts]
+
 
   function addRandom() {
-
-    const randomContact = contacts[Math.floor(Math.random() * contacts.length)]
+   
+    const RandomContact = contacts[Math.floor(Math.random() * contacts.length)]
 
     for (let newContact of newContacts) {
-      if (newContact.name === randomContact.name) {
+      if (newContact.name === RandomContact.name) {
         return addRandom()
       } 
     }
-    const cloneNewContacts = [...newContacts]
-    cloneNewContacts.push(randomContact)
+    
+    cloneNewContacts.push(RandomContact)
     return setNewContacts(cloneNewContacts)
   }
 
+  function SortingByPop() {
+
+    cloneNewContacts.sort((a,b) => b.popularity - a.popularity)
+    return setNewContacts(cloneNewContacts)
+  }
+
+  function SortingByName() {
+
+    cloneNewContacts.sort((a,b) => a.name.localeCompare(b.name))
+    return setNewContacts(cloneNewContacts)
+    
+  }
+ 
+   
   return (
     <div className="App">
       <h1>IronContacts</h1>
       <div className = 'contacts-container'>
         <button onClick ={addRandom} className ='button-layout'>Add Random Contact</button>
+        <button onClick = {SortingByPop} className = 'button-layout'>Sorty by popularity</button>
+        <button onClick = {SortingByName} className = 'button-layout'>Sorty by name</button>
         <table cellPadding = "0" cellSpacing = "0">
           <tr>
             <td><h2>Picture</h2></td>
@@ -38,7 +54,7 @@ function App() {
             <td><h2>Won<br/>Emmy</h2></td>
           </tr>
           
-      { newContacts.map(currentElement => {
+      { cloneNewContacts.map(currentElement => {
         const wonOscar = currentElement.wonOscar ? trophy : null
         const wonEmmy = currentElement.wonEmmy ? trophy : null 
 
