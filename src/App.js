@@ -1,18 +1,35 @@
 import './App.css';
 import contacts from './contacts.json';
+import { useState } from 'react';
 
-const newContacts = contacts.slice(0,6)
+
 const trophy = '🏆'
 
 
-
-
 function App() {
+
+  const [newContacts, setNewContacts] = useState (contacts.slice(0,5))
+
+  function addRandom() {
+
+    const randomContact = contacts[Math.floor(Math.random() * contacts.length)]
+
+    for (let newContact of newContacts) {
+      if (newContact.name === randomContact.name) {
+        return addRandom()
+      } 
+    }
+    const cloneNewContacts = [...newContacts]
+    cloneNewContacts.push(randomContact)
+    return setNewContacts(cloneNewContacts)
+  }
+
   return (
     <div className="App">
       <h1>IronContacts</h1>
       <div className = 'contacts-container'>
-        <table cellpadding="0" cellspacing="0">
+        <button onClick ={addRandom} className ='button-layout'>Add Random Contact</button>
+        <table cellPadding = "0" cellSpacing = "0">
           <tr>
             <td><h2>Picture</h2></td>
             <td><h2>Name</h2></td>
@@ -21,14 +38,15 @@ function App() {
             <td><h2>Won<br/>Emmy</h2></td>
           </tr>
           
-      { newContacts.map(props => {
-        const wonOscar = props.wonOscar ? trophy : null
-        const wonEmmy = props.wonEmmy ? trophy : null
+      { newContacts.map(currentElement => {
+        const wonOscar = currentElement.wonOscar ? trophy : null
+        const wonEmmy = currentElement.wonEmmy ? trophy : null 
+
         return (
           <tr>
-            <td><img src = {props.pictureUrl} alt = {props.name}/></td>
-            <td><p>{props.name}</p></td>
-            <td><p>{Math.round(props.popularity * 100) / 100}</p></td>
+            <td><img src = {currentElement.pictureUrl} alt = {currentElement.name}/></td>
+            <td><p>{currentElement.name}</p></td>
+            <td><p>{Math.round(currentElement.popularity * 100) / 100}</p></td>
             <td><span>{wonOscar}</span></td>
             <td><span>{wonEmmy}</span></td>
           </tr>

@@ -42,3 +42,11 @@ code {
 .contacts-container span {
   font-size: 25px;
 }
+
+.button-layout {
+  border: 1px solid gray ;
+  border-radius: 2px;
+  padding: 6px;
+  color: black;
+  font-size: 15px;
+}
